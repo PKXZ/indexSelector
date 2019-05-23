@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <link rel="stylesheet" href="css/index.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <title>index索引器</title>
+</head>
+<body>
+<div id="indexer">
+    <!--字母表-->
+<!--    <div>-->
+
+<!--    </div>-->
+    <!--索引列表-->
+    <div>
+        <ul>
+            <li v-for="(list, index) in indexerList" :key="index">
+                <p>{{list.pyAnchor}}</p>
+                <ul>
+                    <li v-for="(item, inx) in list.specific" :key="inx">
+                        <span>{{item.fullName ? item.fullName.split("")[0] : ''}}</span>
+                        <span>{{item.fullName}}</span>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <!--右侧字母表-->
+    <ul>
+        <li v-for="(letters, index) in letterList.split('')" :key="index">
+            <span>{{letters}}</span>
+        </li>
+    </ul>
+</div>
+
+<script>
+    new Vue({
+        el: '#indexer',
+        data(){
+            return{
+                //man #2c9cfe woman #f97961
+                indexerList: [
+                    {
+                        pyAnchor: 'A',
+                        specific: [
+                            {
+                                userId: '0',
+                                sex: 'woman',
+                                fullName: '安迪',
+                                headIcon: ''
+                            },{
+                                userId: '1',
+                                sex: 'man',
+                                fullName: '安悦溪',
+                                headIcon: ''
+                            },{
+                                userId: '2',
+                                sex: 'woman',
+                                fullName: '安以轩',
+                                headIcon: ''
+                            },{
+                                userId: '3',
+                                sex: 'man',
+                                fullName: '艾伦',
+                                headIcon: ''
+                            },
+                        ]
+                    },{
+                        pyAnchor: '#',
+                        specific: []
+                    }
+                ],
+                letterList: 'abcdefghijklmnopqrstuvwxyz',
+                jsons:[ //测试数据
+
+                ]
+            }
+        },
+        mounted(){
+            const self = this;
+            window.onresize = function () {
+                self.fnResize();
+            }
+        },
+        methods:{
+            fnResize() {
+                //rem
+                let deviceWidth = document.documentElement.clientWidth || window.innerWidth;
+                if (deviceWidth >= 750) {
+                    deviceWidth = 750;
+                }
+                if (deviceWidth <= 320) {
+                    deviceWidth = 320;
+                }
+                document.documentElement.style.fontSize = (deviceWidth / 7.5) + 'px';
+            }
+        }
+    })
+</script>
+</body>
+</html>
